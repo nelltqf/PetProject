@@ -4,6 +4,7 @@ import {CategoriesList} from "../categories/CategoriesList";
 import {QuestionsList} from "./QuestionsList";
 import {AddQuestionForm} from "./AddQuestionForm";
 import "./Questions.css";
+import {BASE_URL} from "../Constants";
 
 export class QuestionsForm extends Component {
 
@@ -11,7 +12,8 @@ export class QuestionsForm extends Component {
         super(props);
 
         this.state = {
-            currentCategory: 0
+            currentCategory: 0,
+            categories: []
         };
     }
 
@@ -21,6 +23,19 @@ export class QuestionsForm extends Component {
         })
     };
 
+    componentDidMount() {
+        fetch(`${BASE_URL}/categories`)
+            .then(response => {
+                return response.json();
+            })
+            .then(response => {
+                this.setState({
+                    categories: response
+                });
+            })
+            .catch(error => console.error(error));
+    }
+
     render() {
 
         return <div className="root">
@@ -28,9 +43,11 @@ export class QuestionsForm extends Component {
                 Interview Questions
             </Typography>
             <div className="horizontal-form">
-                <CategoriesList currentCategory={this.state.currentCategory} selectCategory={this.selectCategory}/>
-                <QuestionsList currentCategory={this.state.currentCategory} />
-                <AddQuestionForm/>
+                <CategoriesList categories={this.state.categories}
+                                currentCategory={this.state.currentCategory}
+                                selectCategory={this.selectCategory}/>
+                <QuestionsList currentCategory={this.state.currentCategory}/>
+                <AddQuestionForm categories={this.state.categories}/>
             </div>
         </div>
     }

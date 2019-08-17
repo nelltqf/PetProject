@@ -38,14 +38,14 @@ export class QuestionsList extends Component {
 
     questionItems = () => this.state.questions.map((question, i) => {
         return (
-            <ListItem key={i} >
-                    <QuestionItem questionItem={question} />
+            <ListItem key={i}>
+                <QuestionItem questionItem={question}/>
             </ListItem>
         )
     });
 
     render() {
-        return <div className="list"><List>{this.questionItems()}</List></div>;
+        return <div className="list"><List component="nav">{this.questionItems()}</List></div>;
     }
 
-};
+}
