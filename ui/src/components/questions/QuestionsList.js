@@ -15,7 +15,15 @@ export class QuestionsList extends Component {
     }
 
     componentDidMount() {
-        fetch(`${BASE_URL}/questions/${this.props.currentCategory}`)
+        this.fetchQuestions(this.props.currentCategory);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.fetchQuestions(nextProps.currentCategory);
+    }
+
+    fetchQuestions(categoryId) {
+        fetch(`${BASE_URL}/questions/${categoryId}`)
             .then(response => {
                 return response.json();
             })

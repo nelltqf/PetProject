@@ -28,13 +28,11 @@ export class CategoriesList extends Component {
 
     getMenuItems = () => this.state.categories.map((category, i) => {
         return (
-            <div>
-                <MenuItem selected={i === this.props.currentCategory}
-                          key={i}
-                          onClick={() => this.props.selectCategory(i)}>
-                    {category}
-                </MenuItem>
-            </div>
+            <MenuItem selected={i === this.props.currentCategory}
+                      key={i}
+                      onClick={() => this.props.selectCategory(i)}>
+                {category}
+            </MenuItem>
         )
     });
 
