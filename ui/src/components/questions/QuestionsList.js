@@ -3,6 +3,7 @@ import List from "@material-ui/core/List";
 import "./Questions.css";
 import ListItem from "@material-ui/core/ListItem";
 import {BASE_URL} from "../Constants";
+import {QuestionItem} from "./QuestionItem";
 
 export class QuestionsList extends Component {
 
@@ -38,7 +39,7 @@ export class QuestionsList extends Component {
     questionItems = () => this.state.questions.map((question, i) => {
         return (
             <ListItem key={i} >
-                    {question}
+                    <QuestionItem questionItem={question} />
             </ListItem>
         )
     });
