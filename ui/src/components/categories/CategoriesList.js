@@ -1,23 +1,44 @@
-import React from 'react';
+import React, {Component} from 'react';
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
+import {BASE_URL} from "../Constants";
 
-export const CategoriesList = (props) => {
+export class CategoriesList extends Component {
 
-    let categories = ["Java Core", "Collections", "Exceptions"];
+    constructor(props) {
+        super(props);
 
-    let menuItems = categories.map((category, i) => {
+        this.state = {
+            categories: []
+        };
+    }
+
+    componentDidMount() {
+        fetch(`${BASE_URL}/categories`)
+            .then(response => {
+                return response.json();
+            })
+            .then(response => {
+                this.setState({
+                    categories: response
+                });
+            })
+            .catch(error => console.error(error));
+    }
+
+    getMenuItems = () => this.state.categories.map((category, i) => {
         return (
             <div>
-                <MenuItem selected={i === props.currentCategory}
+                <MenuItem selected={i === this.props.currentCategory}
                           key={i}
-                          onClick={() => props.selectCategory(i)}>
+                          onClick={() => this.props.selectCategory(i)}>
                     {category}
                 </MenuItem>
             </div>
         )
     });
 
-    return <MenuList>{menuItems}</MenuList>;
-
-};
+    render() {
+        return <MenuList>{this.getMenuItems()}</MenuList>;
+    };
+}

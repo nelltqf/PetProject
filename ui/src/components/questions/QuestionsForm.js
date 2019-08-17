@@ -29,7 +29,7 @@ export class QuestionsForm extends Component {
             </Typography>
             <div className="horizontal-form">
                 <CategoriesList currentCategory={this.state.currentCategory} selectCategory={this.selectCategory}/>
-                <QuestionsList />
+                <QuestionsList currentCategory={this.state.currentCategory} />
                 <AddQuestionForm/>
             </div>
         </div>

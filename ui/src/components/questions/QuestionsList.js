@@ -1,13 +1,33 @@
-import React from 'react';
+import React, {Component} from 'react';
 import List from "@material-ui/core/List";
 import "./Questions.css";
 import ListItem from "@material-ui/core/ListItem";
+import {BASE_URL} from "../Constants";
 
-export const QuestionsList = (props) => {
+export class QuestionsList extends Component {
 
-    let questions = ["Q1", "Q2", "Q3"];
+    constructor(props) {
+        super(props);
 
-    let questionItems = questions.map((question, i) => {
+        this.state = {
+            questions: []
+        };
+    }
+
+    componentDidMount() {
+        fetch(`${BASE_URL}/questions/${this.props.currentCategory}`)
+            .then(response => {
+                return response.json();
+            })
+            .then(response => {
+                this.setState({
+                    questions: response
+                });
+            })
+            .catch(error => console.error(error));
+    }
+
+    questionItems = () => this.state.questions.map((question, i) => {
         return (
             <ListItem key={i} >
                     {question}
@@ -15,6 +35,8 @@ export const QuestionsList = (props) => {
         )
     });
 
-    return <div className="list"><List>{questionItems}</List></div>;
+    render() {
+        return <div className="list"><List>{this.questionItems()}</List></div>;
+    }
 
 };
