@@ -21,6 +21,11 @@ export class QuestionsList extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.fetchQuestions(nextProps.currentCategory);
+        if (this.props.currentCategory !== nextProps.currentCategory) {
+            this.setState({
+                selectedQuestion: null
+            })
+        }
     }
 
     fetchQuestions(categoryId) {
