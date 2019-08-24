@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import List from "@material-ui/core/List";
-import "./Questions.css";
+import "../../css/App.css";
 import ListItem from "@material-ui/core/ListItem";
-import {BASE_URL} from "../Constants";
+import {BASE_URL} from "../../constants/Constants";
 import {QuestionItem} from "./QuestionItem";
 
 export class QuestionsList extends Component {

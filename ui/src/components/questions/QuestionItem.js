@@ -2,7 +2,7 @@ import React from 'react';
 import {Typography} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
-import "./Questions.css";
+import "../../css/App.css";
 import Button from "@material-ui/core/Button";
 
 export const QuestionItem = (props) => {
@@ -14,9 +14,7 @@ export const QuestionItem = (props) => {
         <div>
             <Grid
                 container
-                direction="row"
-                justify="center"
-                alignItems="center">
+                direction="row">
                 <Avatar className="avatar">{props.questionItem.difficulty}</Avatar>
                 <Typography>{props.questionItem.question}</Typography>
             </Grid>

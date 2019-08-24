@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import {BASE_URL} from "../Constants";
+import {BASE_URL} from "../../constants/Constants";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Rating from 'material-ui-rating'
-import "./Questions.css";
+import "../../css/App.css";
 import {Bookmark, BookmarkBorder} from "@material-ui/icons";
 
 export class AddQuestionForm extends Component {

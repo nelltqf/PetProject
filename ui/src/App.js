@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import './css/App.css';
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import {LoginForm} from "./components/login/LoginForm";
-import {QuestionsForm} from "./components/questions/QuestionsForm";
+import {QuestionsForm} from "./components/forms/QuestionsForm";
 
 class App extends Component {
 
@@ -16,6 +16,9 @@ class App extends Component {
             <Router>
                 <div className="app">
                     <Route exact path="/" component={QuestionsForm}/>
+                    <Route exact path="/questions" component={QuestionsForm}/>
+                    <Route exact path="/add" component={QuestionsForm}/>
+                    <Route exact path="/account" component={QuestionsForm}/>
                     <Route path='/login' component={LoginForm}/>
                 </div>
             </Router>
