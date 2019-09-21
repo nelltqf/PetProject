@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import List from "@material-ui/core/List";
 import "../../css/App.css";
 import ListItem from "@material-ui/core/ListItem";
-import {BASE_URL} from "../../constants/Constants";
 import {QuestionItem} from "./QuestionItem";
+import {QuestionsApi} from "../service/QuestionsApi";
 
 export class QuestionsList extends Component {
+    questionsApi = new QuestionsApi();
 
     constructor(props) {
         super(props);
@@ -29,10 +30,7 @@ export class QuestionsList extends Component {
     }
 
     fetchQuestions(categoryId) {
-        fetch(`${BASE_URL}/questions/${categoryId}`)
-            .then(response => {
-                return response.json();
-            })
+        this.questionsApi.fetchQuestions(categoryId)
             .then(response => {
                 this.setState({
                     questions: response
@@ -40,6 +38,17 @@ export class QuestionsList extends Component {
             })
             .catch(error => console.error(error));
     }
+
+    deleteQuestion = (question, i) => {
+        this.questionsApi.deleteQuestion(question)
+            .then(response => {
+                let newQuestions = [...this.state.questions];
+                newQuestions.splice(i, 1);
+                this.setState({questions: newQuestions});
+                return response.json();
+            })
+            .catch(error => console.error(error));
+    };
 
     setSelectedQuestion(i) {
         let selected = i;
@@ -56,6 +65,7 @@ export class QuestionsList extends Component {
             <ListItem key={i}>
                 <QuestionItem questionItem={question}
                               onClick={() => this.setSelectedQuestion(i)}
+                              onClickDelete={() => this.deleteQuestion(question, i)}
                               showAnswer={i === this.state.selectedQuestion}/>
             </ListItem>
         )

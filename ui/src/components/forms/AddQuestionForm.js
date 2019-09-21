@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {TextField} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import {BASE_URL} from "../../constants/Constants";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
@@ -11,8 +10,14 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Rating from 'material-ui-rating'
 import "../../css/App.css";
 import {Bookmark, BookmarkBorder} from "@material-ui/icons";
+import {QuestionsApi} from "../service/QuestionsApi";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogActions from "@material-ui/core/DialogActions";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 export class AddQuestionForm extends Component {
+    questionsApi = new QuestionsApi();
 
     constructor(props) {
         super(props);
@@ -21,7 +26,9 @@ export class AddQuestionForm extends Component {
             question: "",
             answer: "",
             category: 0,
-            difficulty: 0
+            difficulty: 0,
+            openDialog: false,
+            loading: false
         };
     }
 
@@ -34,42 +41,55 @@ export class AddQuestionForm extends Component {
     };
 
     save = () => {
-        this.saveQuestion({
+        this.setState({
+            loading: true
+        });
+        this.questionsApi.saveQuestion({
             question: this.state.question,
             answer: this.state.answer,
             category: this.state.category,
             difficulty: this.state.difficulty,
-        });
-        this.setState({
-            question: "",
-            answer: "",
-            difficulty: 0
         })
-    };
-
-    saveQuestion = question => {
-        fetch(`${BASE_URL}/questions/add`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(question),
-        })
-            .then(response => {
-                return response.json();
+            .then(() => {
+                // alert("saved")
+                console.log('then');
+                this.setState({
+                    question: "",
+                    answer: "",
+                    difficulty: 0,
+                    loading: false
+                });
             })
-            .catch(error => console.error(error));
+            .catch(error => {
+                console.error(error.message);
+                this.setState({
+                    openDialog: true,
+                    loading: false
+                })
+            });
+
     };
 
-    categories = () => {
-        return this.props.categories.map((category, i) => {
-            return <MenuItem key={i} value={i}>{category}</MenuItem>;
+    handleClose() {
+        this.setState({
+            openDialog: false
         })
-    };
+    }
+
+    categories = () => this.props.categories.map((category, i) => <MenuItem key={i} value={i}>{category}</MenuItem>);
 
     render() {
         return (
             <div className="vertical-form">
+                <Dialog open={this.state.openDialog}
+                        onClose={this.handleClose.bind(this)}>
+                    <DialogTitle>Some error has occurred</DialogTitle>
+                    <DialogActions>
+                        <Button onClick={this.handleClose.bind(this)} color="primary">
+                            Ok
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <Typography component="h1" variant="h5">Add question</Typography>
                 <FormControl variant="outlined">
                     <InputLabel htmlFor="outlined-age-simple">
@@ -111,6 +131,7 @@ export class AddQuestionForm extends Component {
                 />
                 <Button
                     variant="contained" color="primary" onClick={this.save}>Save</Button>
+                {this.state.loading ? <CircularProgress size={24}/> : null}
             </div>
         );
     };

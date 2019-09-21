@@ -6,11 +6,6 @@ import {QuestionsForm} from "./components/forms/QuestionsForm";
 
 class App extends Component {
 
-    state = {
-        stepMap: new Map([["Step 1", {title: "", description: ""}]]),
-        currentStep: "Step 1",
-    };
-
     render() {
         return (
             <Router>

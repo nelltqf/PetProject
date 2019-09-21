@@ -46,7 +46,6 @@ export class QuestionsForm extends Component {
     }
 
     render() {
-
         let elements = {
             0: <QuestionsDisplayForm categories={this.state.categories}
                                      currentCategory={this.state.currentCategory}
@@ -54,7 +53,6 @@ export class QuestionsForm extends Component {
             1: <AddQuestionForm categories={this.state.categories}/>,
             2: <p>Account</p>
         };
-
         return <Router>
             <div className="root">
                 <AppBar position="static" color="default">

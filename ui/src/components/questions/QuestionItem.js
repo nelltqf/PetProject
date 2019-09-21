@@ -17,9 +17,18 @@ export const QuestionItem = (props) => {
         <div>
             <Grid
                 container
+                wrap="nowrap"
+                spacing={2}
                 direction="row">
-                <Avatar className="avatar">{props.questionItem.difficulty}</Avatar>
-                <Typography>{props.questionItem.question}</Typography>
+                <Grid item>
+                    <Avatar className="avatar">{props.questionItem.difficulty}</Avatar>
+                </Grid>
+                <Grid item>
+                    <Typography>{props.questionItem.question}</Typography>
+                </Grid>
+                <Grid item>
+                    <Button onClick={props.onClickDelete} variant="outlined">x</Button>
+                </Grid>
             </Grid>
             <Button onClick={props.onClick}>{buttonText}</Button>
             {answer}

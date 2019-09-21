@@ -4,7 +4,7 @@ import MenuList from "@material-ui/core/MenuList";
 
 export const CategoriesList = (props) => {
 
-    let getMenuItems = () => props.categories.map((category, i) => {
+    const getMenuItems = props.categories.map((category, i) => {
         return (
             <MenuItem selected={i === props.currentCategory}
                       key={i}
@@ -14,5 +14,5 @@ export const CategoriesList = (props) => {
         )
     });
 
-    return <MenuList>{getMenuItems()}</MenuList>;
+    return <MenuList>{getMenuItems}</MenuList>;
 };
