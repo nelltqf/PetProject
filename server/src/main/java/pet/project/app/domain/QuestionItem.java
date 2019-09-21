@@ -51,4 +51,8 @@ public class QuestionItem {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

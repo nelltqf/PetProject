@@ -18,13 +18,6 @@ public class QuestionManager {
     @Autowired
     public QuestionManager(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
-
-        // TODO remove stub
-        QuestionItem question = new QuestionItem();
-        question.setCategory(Category.JAVA_CORE);
-        question.setQuestion("Question");
-        question.setAnswer("Answer");
-        questionRepository.save(question);
     }
 
 
