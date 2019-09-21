@@ -1,21 +1,24 @@
 package pet.project.app.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class QuestionItem {
 
-    private final Category category;
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    private Long id;
 
-    private final Difficulty difficulty;
+    private Category category;
 
-    private final String question;
+    private Difficulty difficulty;
 
-    private final String answer;
+    private String question;
 
-    public QuestionItem(Category category, Difficulty difficulty, String question, String answer) {
-        this.category = category;
-        this.difficulty = difficulty;
-        this.question = question;
-        this.answer = answer;
-    }
+    private String answer;
 
     public String getQuestion() {
         return question;
@@ -31,5 +34,21 @@ public class QuestionItem {
 
     public Difficulty getDifficulty() {
         return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }
