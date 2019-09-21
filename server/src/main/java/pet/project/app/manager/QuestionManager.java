@@ -1,11 +1,11 @@
-package pet.project.app;
+package pet.project.app.manager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pet.project.app.domain.Category;
-import pet.project.app.domain.QuestionItem;
+import pet.project.app.domain.Question;
+import pet.project.app.repository.QuestionRepository;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,20 +26,20 @@ public class QuestionManager {
         return Stream.of(Category.values()).map(Category::name).collect(Collectors.toList());
     }
 
-    public List<QuestionItem> getQuestionsByCategory(String categoryId) {
+    public List<Question> getQuestionsByCategory(String categoryId) {
         // TODO stub
         return questionRepository.findByCategory(Category.values()[Integer.parseInt(categoryId)]);
     }
 
-    public void createQuestion(QuestionItem questionItem) {
-        questionRepository.save(questionItem);
+    public void createQuestion(Question question) {
+        questionRepository.save(question);
     }
 
-    public void updateQuestion(QuestionItem questionItem) {
+    public void updateQuestion(Question question) {
         // TODO
     }
 
-    public void deleteQuestion(QuestionItem questionItem) {
-        questionRepository.delete(questionItem);
+    public void deleteQuestion(Question question) {
+        questionRepository.delete(question);
     }
 }
