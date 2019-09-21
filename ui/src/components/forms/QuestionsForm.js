@@ -40,7 +40,6 @@ export class QuestionsForm extends Component {
     }
 
     selectTab(event, tab) {
-        debugger;
         this.setState({
             tab: tab
         })

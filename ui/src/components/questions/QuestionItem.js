@@ -7,7 +7,10 @@ import Button from "@material-ui/core/Button";
 
 export const QuestionItem = (props) => {
 
-    let answer = props.showAnswer ? <Typography>{props.questionItem.answer}</Typography> : null;
+    let answerText = props.questionItem.answer.split('\n').map((item, i) => {
+        return <p key={i}>{item}</p>;
+    });
+    let answer = props.showAnswer ? <Typography>{answerText}</Typography> : null;
     let buttonText = props.showAnswer ? "Hide answer" : "Show answer";
 
     return (

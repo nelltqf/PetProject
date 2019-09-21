@@ -48,7 +48,7 @@ export class AddQuestionForm extends Component {
     };
 
     saveQuestion = question => {
-        fetch(`${BASE_URL}/addQuestion`, {
+        fetch(`${BASE_URL}/questions/add`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
