@@ -6,12 +6,18 @@ import "../../css/App.css";
 import Button from "@material-ui/core/Button";
 
 export const QuestionItem = (props) => {
+    let answerBlock = null;
 
-    let answerText = props.questionItem.answerText.split('\n').map((item, i) => {
-        return <p key={i}>{item}</p>;
-    });
-    let answer = props.showAnswer ? <Typography>{answerText}</Typography> : null;
-    let buttonText = props.showAnswer ? "Hide answer" : "Show answer";
+    if (props.questionItem.answerText) {
+        let answerText = props.questionItem.answerText.split('\n').map((item, i) => {
+            return <p key={i}>{item}</p>;
+        });
+
+        answerBlock = <div>
+            <Button onClick={props.onClick}>{props.showAnswer ? "Hide answer" : "Show answer"}</Button>
+            {props.showAnswer ? <Typography>{answerText}</Typography> : null}
+        </div>;
+    }
 
     return (
         <div>
@@ -30,8 +36,7 @@ export const QuestionItem = (props) => {
                     <Button onClick={props.onClickDelete} variant="outlined">x</Button>
                 </Grid>
             </Grid>
-            <Button onClick={props.onClick}>{buttonText}</Button>
-            {answer}
+            {answerBlock}
         </div>
     );
 };

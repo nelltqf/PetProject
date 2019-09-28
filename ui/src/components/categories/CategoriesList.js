@@ -1,6 +1,7 @@
 import React from 'react';
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
+import Button from "@material-ui/core/Button";
 
 export const CategoriesList = (props) => {
 
@@ -14,5 +15,8 @@ export const CategoriesList = (props) => {
         )
     });
 
-    return <MenuList>{getMenuItems}</MenuList>;
+    return <div>
+        <MenuList>{getMenuItems}</MenuList>
+        <Button variant="contained" color="primary" onClick={() => props.editCategories()}>Edit</Button>
+    </div>;
 };

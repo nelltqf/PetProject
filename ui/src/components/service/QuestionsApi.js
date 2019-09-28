@@ -40,8 +40,36 @@ export class QuestionsApi {
             })
     };
 
+    deleteCategory = categoryId => {
+        return fetch(`${BASE_URL}/categories/delete/${categoryId}`, {
+            method: 'DELETE'
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Something went wrong");
+                }
+            })
+    };
+
     fetchCategories() {
         return fetch(`${BASE_URL}/categories/`)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Something went wrong");
+                }
+            })
+    }
+
+    addCategory(category) {
+        return fetch(`${BASE_URL}/categories/add`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(category),
+        })
             .then(response => {
                 if (response.ok) {
                     return response.json();

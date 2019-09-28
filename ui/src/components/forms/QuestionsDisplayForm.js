@@ -8,7 +8,8 @@ export const QuestionsDisplayForm = (props) => {
     return <div className="horizontal-form">
         <CategoriesList categories={props.categories}
                         currentCategory={props.currentCategory}
-                        selectCategory={props.selectCategory}/>
+                        selectCategory={props.selectCategory}
+                        editCategories={props.editCategories}/>
         <QuestionsList currentCategory={props.currentCategory}/>
     </div>
 };
