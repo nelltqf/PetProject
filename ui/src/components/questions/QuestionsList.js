@@ -40,12 +40,11 @@ export class QuestionsList extends Component {
     }
 
     deleteQuestion = (question, i) => {
-        this.questionsApi.deleteQuestion(question)
-            .then(response => {
+        this.questionsApi.deleteQuestion(question.id)
+            .then(() => {
                 let newQuestions = [...this.state.questions];
                 newQuestions.splice(i, 1);
                 this.setState({questions: newQuestions});
-                return response.json();
             })
             .catch(error => console.error(error));
     };

@@ -8,8 +8,8 @@ export const CategoriesList = (props) => {
         return (
             <MenuItem selected={i === props.currentCategory}
                       key={i}
-                      onClick={() => props.selectCategory(i)}>
-                {category}
+                      onClick={() => props.selectCategory(category.id)}>
+                {category.name}
             </MenuItem>
         )
     });

@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 
 export const QuestionItem = (props) => {
 
-    let answerText = props.questionItem.answer.split('\n').map((item, i) => {
+    let answerText = props.questionItem.answerText.split('\n').map((item, i) => {
         return <p key={i}>{item}</p>;
     });
     let answer = props.showAnswer ? <Typography>{answerText}</Typography> : null;
@@ -21,10 +21,10 @@ export const QuestionItem = (props) => {
                 spacing={2}
                 direction="row">
                 <Grid item>
-                    <Avatar className="avatar">{props.questionItem.difficulty}</Avatar>
+                    <Avatar className="avatar">{props.questionItem.difficultyId}</Avatar>
                 </Grid>
                 <Grid item>
-                    <Typography>{props.questionItem.question}</Typography>
+                    <Typography>{props.questionItem.questionText}</Typography>
                 </Grid>
                 <Grid item>
                     <Button onClick={props.onClickDelete} variant="outlined">x</Button>

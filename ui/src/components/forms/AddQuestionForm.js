@@ -25,7 +25,7 @@ export class AddQuestionForm extends Component {
         this.state = {
             question: "",
             answer: "",
-            category: 0,
+            category: "",
             difficulty: 0,
             openDialog: false,
             loading: false
@@ -45,14 +45,12 @@ export class AddQuestionForm extends Component {
             loading: true
         });
         this.questionsApi.saveQuestion({
-            question: this.state.question,
-            answer: this.state.answer,
-            category: this.state.category,
-            difficulty: this.state.difficulty,
+            questionText: this.state.question,
+            answerText: this.state.answer,
+            categoryId: this.state.category,
+            difficultyId: this.state.difficulty,
         })
             .then(() => {
-                // alert("saved")
-                console.log('then');
                 this.setState({
                     question: "",
                     answer: "",
@@ -76,7 +74,7 @@ export class AddQuestionForm extends Component {
         })
     }
 
-    categories = () => this.props.categories.map((category, i) => <MenuItem key={i} value={i}>{category}</MenuItem>);
+    categories = () => this.props.categories.map((category, i) => <MenuItem key={i} value={category.id}>{category.name}</MenuItem>);
 
     render() {
         return (

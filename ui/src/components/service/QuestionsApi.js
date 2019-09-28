@@ -29,14 +29,19 @@ export class QuestionsApi {
             })
     }
 
-    deleteQuestion = question => {
-        return fetch(`${BASE_URL}/questions/delete`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(question),
+    deleteQuestion = questionId => {
+        return fetch(`${BASE_URL}/questions/delete/${questionId}`, {
+            method: 'DELETE'
         })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Something went wrong");
+                }
+            })
+    };
+
+    fetchCategories() {
+        return fetch(`${BASE_URL}/categories/`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
@@ -44,5 +49,5 @@ export class QuestionsApi {
                     throw new Error("Something went wrong");
                 }
             })
-    };
+    }
 }

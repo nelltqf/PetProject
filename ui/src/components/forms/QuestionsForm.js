@@ -1,20 +1,21 @@
 import React, {Component} from 'react';
 import {AddQuestionForm} from "./AddQuestionForm";
 import "../../css/App.css";
-import {BASE_URL} from "../../constants/Constants";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {QuestionsDisplayForm} from "./QuestionsDisplayForm";
 import {BrowserRouter as Router} from "react-router-dom";
+import {QuestionsApi} from "../service/QuestionsApi";
 
 export class QuestionsForm extends Component {
+    questionsApi = new QuestionsApi();
 
     constructor(props) {
         super(props);
 
         this.state = {
-            currentCategory: 0,
+            currentCategory: 1,
             categories: [],
             tab: 0
         };
@@ -27,16 +28,14 @@ export class QuestionsForm extends Component {
     };
 
     componentDidMount() {
-        fetch(`${BASE_URL}/categories`)
+        this.questionsApi.fetchCategories()
             .then(response => {
-                return response.json();
-            })
-            .then(response => {
+                console.log(response);
                 this.setState({
-                    categories: response
-                });
-            })
-            .catch(error => console.error(error));
+                        categories: response
+                    }
+                )
+            });
     }
 
     selectTab(event, tab) {
