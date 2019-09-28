@@ -6,7 +6,8 @@ import pet.project.app.domain.Question;
 
 import java.util.List;
 
-public interface QuestionRepository extends CrudRepository<Question, Integer> {
+public interface CategoryRepository extends CrudRepository<Category, Integer> {
 
-    List<Question> findByCategory(Category category);
+    List<Category> findByName(String name);
+
 }
