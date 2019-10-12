@@ -4,18 +4,21 @@ import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import "../../css/App.css";
 import Button from "@material-ui/core/Button";
+import ReactMarkdown from "react-markdown";
+import {CodeBlock} from "../service/CodeBlock";
 
 export const QuestionItem = (props) => {
     let answerBlock = null;
 
     if (props.questionItem.answerText) {
-        let answerText = props.questionItem.answerText.split('\n').map((item, i) => {
-            return <p key={i}>{item}</p>;
-        });
-
-        answerBlock = <div>
+        answerBlock = <div className="answer">
             <Button onClick={props.onClick}>{props.showAnswer ? "Hide answer" : "Show answer"}</Button>
-            {props.showAnswer ? <Typography>{answerText}</Typography> : null}
+            {props.showAnswer
+                ? <ReactMarkdown source={props.questionItem.answerText}
+                                 escapeHtml={false}
+                                 renderers={{code: CodeBlock}}
+                />
+                : null}
         </div>;
     }
 

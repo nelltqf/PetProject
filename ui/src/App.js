@@ -3,6 +3,7 @@ import './css/App.css';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import {LoginForm} from "./components/login/LoginForm";
 import {QuestionsForm} from "./components/forms/QuestionsForm";
+import '../node_modules/highlight.js/styles/github.css';
 
 class App extends Component {
 

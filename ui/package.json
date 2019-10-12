@@ -6,10 +6,12 @@
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.2.1",
     "clsx": "latest",
+    "highlight.js": "^9.15.10",
     "material-design-icons": "^3.0.1",
     "material-ui-rating": "^4.0.0-beta.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-markdown": "^4.2.2",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "recharts": "^1.7.0"
