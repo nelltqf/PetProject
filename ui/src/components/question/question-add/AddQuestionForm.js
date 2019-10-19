@@ -15,6 +15,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {QuestionsApi} from "../../service/QuestionsApi";
+import {ErrorDialog} from "../../service/ErrorDialog";
 
 export class AddQuestionForm extends Component {
     questionsApi = new QuestionsApi();
@@ -28,7 +29,8 @@ export class AddQuestionForm extends Component {
             category: "",
             difficulty: 0,
             openDialog: false,
-            loading: false
+            loading: false,
+            error: 'Some error has occurred'
         };
     }
 
@@ -41,30 +43,43 @@ export class AddQuestionForm extends Component {
     };
 
     save = () => {
-        this.setState({
-            loading: true
-        });
-        this.questionsApi.saveQuestion({
-            questionText: this.state.question,
-            answerText: this.state.answer,
-            categoryId: this.state.category,
-            difficultyId: this.state.difficulty,
-        })
-            .then(() => {
-                this.setState({
-                    question: "",
-                    answer: "",
-                    difficulty: 0,
-                    loading: false
-                });
+        // TODO replace this simple check with real validation
+        if (!this.state.category) {
+            this.setState({
+                error: 'Please provide the category',
+                openDialog: true
             })
-            .catch(error => {
-                console.error(error.message);
-                this.setState({
-                    openDialog: true,
-                    loading: false
-                })
+        } else if (!this.state.question) {
+            this.setState({
+                error: 'Please provide the question',
+                openDialog: true
+            })
+        } else {
+            this.setState({
+                loading: true
             });
+            this.questionsApi.saveQuestion({
+                questionText: this.state.question,
+                answerText: this.state.answer,
+                categoryId: this.state.category,
+                difficultyId: this.state.difficulty,
+            })
+                .then(() => {
+                    this.setState({
+                        question: "",
+                        answer: "",
+                        difficulty: 0,
+                        loading: false
+                    });
+                })
+                .catch(error => {
+                    console.error(error.message);
+                    this.setState({
+                        openDialog: true,
+                        loading: false
+                    })
+                });
+        }
 
     };
 
@@ -80,15 +95,9 @@ export class AddQuestionForm extends Component {
     render() {
         return (
             <div className="vertical-form">
-                <Dialog open={this.state.openDialog}
-                        onClose={this.handleClose.bind(this)}>
-                    <DialogTitle>Some error has occurred</DialogTitle>
-                    <DialogActions>
-                        <Button onClick={this.handleClose.bind(this)} color="primary">
-                            Ok
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                <ErrorDialog isOpen={this.state.openDialog}
+                             handleClose={this.handleClose.bind(this)}
+                             title={this.state.error}/>
                 <Typography component="h1" variant="h5">Add question</Typography>
                 <FormControl variant="outlined">
                     <InputLabel htmlFor="outlined-age-simple">

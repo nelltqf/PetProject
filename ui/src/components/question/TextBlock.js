@@ -7,7 +7,7 @@ export const TextBlock = (props) => {
     return <>{props.isEditable
         ? <TextField className='text-field'
                      value={props.text}
-                     label="Question"
+                     label={props.label}
                      multiline
                      rowsMax="8"
                      variant="filled"

@@ -69,11 +69,13 @@ export class QuestionItem extends Component {
                                 <Grid item>
                                     <TextBlock isEditable={this.state.isEditable}
                                                text={this.state.questionText}
+                                               label='Question'
                                                onChange={this.handleChange("questionText")}/>
                                 </Grid>
                                 <Grid item>
                                     <TextBlock isEditable={this.state.isEditable}
                                                text={this.state.answerText}
+                                               label='Answer'
                                                onChange={this.handleChange("answerText").bind(this)}/>
                                 </Grid>
                             </Grid>
