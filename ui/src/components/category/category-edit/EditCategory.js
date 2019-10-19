@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-import Button from "@material-ui/core/Button";
-import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import CheckIcon from '@material-ui/icons/Check';
 import './edit-categories.css';
 import {TextField} from "@material-ui/core";
+import {ControlButtonsContainer} from "../../control-buttons/ControlButtonsContainer";
 
 export class EditCategory extends Component {
 
@@ -40,14 +37,9 @@ export class EditCategory extends Component {
                                  value={this.state.categoryName}
                                  onChange={this.handleChange("categoryName")}/>
                     : this.state.categoryName}</div>
-                <div className='control-buttons'>
-                    <Button variant="outlined" onClick={this.editCategoryName}>
-                        {this.state.isEditable ? <CheckIcon/> : <EditOutlinedIcon/>}
-                    </Button>
-                    <Button onClick={() => this.props.deleteCategory(this.props.category.id)} variant="outlined">
-                        <DeleteOutlinedIcon/>
-                    </Button>
-                </div>
+                <ControlButtonsContainer isEditable={this.state.isEditable}
+                                         onClick={this.editCategoryName.bind(this)}
+                                         onDelete={() => this.props.deleteCategory(this.props.category.id)}/>
             </div>
         );
     }

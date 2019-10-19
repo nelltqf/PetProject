@@ -6,13 +6,12 @@ import {Dialog} from "@material-ui/core";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import {TextBlock} from "../TextBlock";
-import {StateButtonsContainer} from "../../service/StateButtonsContainer";
+import {ControlButtonsContainer} from "../../control-buttons/ControlButtonsContainer";
 
 export class QuestionItem extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props);
 
         this.state = {
             showDetails: false,
@@ -78,9 +77,9 @@ export class QuestionItem extends Component {
                                                onChange={this.handleChange("answerText").bind(this)}/>
                                 </Grid>
                             </Grid>
-                            <StateButtonsContainer isEditable={this.state.isEditable}
-                                                   onClick={this.editQuestion.bind(this)}
-                                                   onDelete={this.props.onClickDelete}/>
+                            <ControlButtonsContainer isEditable={this.state.isEditable}
+                                                     onClick={this.editQuestion.bind(this)}
+                                                     onDelete={this.props.onClickDelete}/>
                         </div>
                         <DialogActions>
                             <Button onClick={this.handleClose}> Close </Button>

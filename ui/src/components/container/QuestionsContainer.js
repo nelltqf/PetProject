@@ -31,7 +31,6 @@ export class QuestionsContainer extends Component {
     componentDidMount() {
         this.questionsApi.fetchCategories()
             .then(response => {
-                console.log(response);
                 this.setState({
                         categories: response,
                         currentCategory: response[0] && response[0].id
@@ -78,7 +77,7 @@ export class QuestionsContainer extends Component {
                 let newCategories = this.state.categories.filter(category => category.id !== categoryId);
                 let newCurrentCategory = this.state.currentCategory;
                 if (this.state.currentCategory === categoryId) {
-                    newCurrentCategory = newCategories[0].id;
+                    newCurrentCategory = newCategories[0] ? newCategories[0].id : null;
                 }
                 this.setState({
                     categories: newCategories,
