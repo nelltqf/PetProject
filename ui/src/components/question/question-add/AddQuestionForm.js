@@ -10,9 +10,6 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Rating from 'material-ui-rating'
 import "../../../css/App.css";
 import {Bookmark, BookmarkBorder} from "@material-ui/icons";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {QuestionsApi} from "../../service/QuestionsApi";
 import {ErrorDialog} from "../../service/ErrorDialog";

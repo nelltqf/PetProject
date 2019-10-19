@@ -7,6 +7,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import {TextBlock} from "../TextBlock";
 import {ControlButtonsContainer} from "../../control-buttons/ControlButtonsContainer";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
 
 export class QuestionItem extends Component {
 
@@ -51,7 +53,15 @@ export class QuestionItem extends Component {
         this.setState({isEditable: !this.state.isEditable});
     };
 
+    difficultyDisplayName = ['Intern', 'Junior', 'Middle', 'Senior'];
+
     render() {
+        let difficultySelect = <Select
+            value={this.state.difficultyId}
+            onChange={this.handleChange("difficultyId")}
+        >
+            {this.difficultyDisplayName.map((value, i) => <MenuItem value={i}>{value}</MenuItem>)}
+        </Select>;
         return (
             <>
                 <Grid item onClick={() => {this.setState({showDetails: true})}}>
@@ -63,7 +73,10 @@ export class QuestionItem extends Component {
                     <DialogContent>
                         <div className='question-details-dialog'>
                             <Grid item>
-                                Difficulty: {this.state.difficultyId}
+                                Difficulty:
+                                {this.state.isEditable
+                                    ? difficultySelect
+                                    : this.difficultyDisplayName[this.state.difficultyId]}
                             </Grid>
                             <Grid container wrap="nowrap" spacing={2} direction="column">
                                 <Grid item>
