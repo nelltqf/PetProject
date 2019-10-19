@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import {TextField} from "@material-ui/core";
 import './edit-categories.css';
-import {EditCategory} from "./EditCategory";
+import {EditCategory} from ".//EditCategory";
 
 export class EditCategoriesList extends Component {
 

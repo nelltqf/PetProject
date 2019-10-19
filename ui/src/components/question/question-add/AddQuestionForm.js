@@ -8,13 +8,13 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import Rating from 'material-ui-rating'
-import "../../css/App.css";
+import "../../../css/App.css";
 import {Bookmark, BookmarkBorder} from "@material-ui/icons";
-import {QuestionsApi} from "../service/QuestionsApi";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogActions from "@material-ui/core/DialogActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {QuestionsApi} from "../../service/QuestionsApi";
 
 export class AddQuestionForm extends Component {
     questionsApi = new QuestionsApi();
@@ -74,7 +74,8 @@ export class AddQuestionForm extends Component {
         })
     }
 
-    categories = () => this.props.categories.map((category, i) => <MenuItem key={i} value={category.id}>{category.name}</MenuItem>);
+    categories = () => this.props.categories.map((category, i) => <MenuItem key={i}
+                                                                            value={category.id}>{category.name}</MenuItem>);
 
     render() {
         return (
@@ -127,8 +128,7 @@ export class AddQuestionForm extends Component {
                     iconNormal={<BookmarkBorder/>}
                     onChange={(value) => this.setState({difficulty: value})}
                 />
-                <Button
-                    variant="contained" color="primary" onClick={this.save}>Save</Button>
+                <Button variant="contained" color="primary" onClick={this.save}>Save</Button>
                 {this.state.loading ? <CircularProgress size={24}/> : null}
             </div>
         );

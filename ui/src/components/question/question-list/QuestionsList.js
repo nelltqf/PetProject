@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import List from "@material-ui/core/List";
-import "../../css/App.css";
+import "../../../css/App.css";
 import ListItem from "@material-ui/core/ListItem";
-import {QuestionItem} from "./QuestionItem";
-import {QuestionsApi} from "../service/QuestionsApi";
+import {QuestionsApi} from "../../service/QuestionsApi";
+import {QuestionItem} from "../question-item/QuestionItem";
 
 export class QuestionsList extends Component {
     questionsApi = new QuestionsApi();

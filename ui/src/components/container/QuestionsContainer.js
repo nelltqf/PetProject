@@ -1,21 +1,19 @@
 import React, {Component} from 'react';
-import {AddQuestionForm} from "./AddQuestionForm";
+import {AddQuestionForm} from "../question/question-add/AddQuestionForm";
 import "../../css/App.css";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import {QuestionsDisplayForm} from "./QuestionsDisplayForm";
-import {BrowserRouter as Router} from "react-router-dom";
+import {QuestionsListContainer} from "./QuestionsListContainer";
 import {QuestionsApi} from "../service/QuestionsApi";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import {EditCategoriesList} from "../categories/EditCategoriesList";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
+import {EditCategoriesList} from "../category/category-edit/EditCategoriesList";
+import {ErrorDialog} from "../service/ErrorDialog";
 
-export class QuestionsForm extends Component {
+export class QuestionsContainer extends Component {
     questionsApi = new QuestionsApi();
 
     constructor(props) {
@@ -114,52 +112,42 @@ export class QuestionsForm extends Component {
 
     render() {
         let elements = {
-            0: <QuestionsDisplayForm categories={this.state.categories}
-                                     currentCategory={this.state.currentCategory}
-                                     selectCategory={this.selectCategory}
-                                     editCategories={this.editCategories}/>,
+            0: <QuestionsListContainer categories={this.state.categories}
+                                       currentCategory={this.state.currentCategory}
+                                       selectCategory={this.selectCategory}
+                                       editCategories={this.editCategories}/>,
             1: <AddQuestionForm categories={this.state.categories}/>
         };
-        return <Router>
-            <div className="root">
-                <Dialog open={this.state.openError}
-                        onClose={this.handleClose.bind(this)}>
-                    <DialogTitle>Cannot delete category</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            This category cannot be removed. Try removing all questions from the category first.
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleClose.bind(this)} color="primary" autoFocus>
-                            OK
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-                <Dialog open={this.state.showCategoriesDialog}
-                        onClose={this.handleClose.bind(this)}>
-                    <DialogTitle>Edit categories</DialogTitle>
-                    <EditCategoriesList categories={this.state.categories}
-                                        deleteCategory={this.deleteCategory.bind(this)}
-                                        editCategory={this.editCategory.bind(this)}
-                                        addNewCategory={this.addNewCategory.bind(this)}/>
-                    <DialogActions>
-                        <Button onClick={this.handleClose.bind(this)} color="primary">
-                            Done
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-                <AppBar position="static" color="default">
-                    <Tabs
-                        value={this.state.tab}
-                        onChange={this.selectTab.bind(this)}
-                    >
-                        <Tab value={0} label="Questions"/>
-                        <Tab value={1} label="Add question"/>
-                    </Tabs>
-                </AppBar>
-                {elements[this.state.tab]}
-            </div>
-        </Router>
+        return <div className="root">
+            <ErrorDialog isOpen={this.state.openError}
+                         handleClose={this.handleClose.bind(this)}
+                         title="Cannot delete category">
+                This category cannot be removed. Try removing all questions from the category first.
+            </ErrorDialog>
+
+            <Dialog open={this.state.showCategoriesDialog}
+                    onClose={this.handleClose.bind(this)}>
+                <DialogTitle>Edit categories</DialogTitle>
+                <EditCategoriesList categories={this.state.categories}
+                                    deleteCategory={this.deleteCategory.bind(this)}
+                                    editCategory={this.editCategory.bind(this)}
+                                    addNewCategory={this.addNewCategory.bind(this)}/>
+                <DialogActions>
+                    <Button onClick={this.handleClose.bind(this)} color="primary">
+                        Done
+                    </Button>
+                </DialogActions>
+            </Dialog>
+            <AppBar position="static" color="default">
+                <Tabs
+                    value={this.state.tab}
+                    onChange={this.selectTab.bind(this)}
+                >
+                    <Tab value={0} label="Questions"/>
+                    <Tab value={1} label="Add question"/>
+                </Tabs>
+            </AppBar>
+            {elements[this.state.tab]}
+        </div>
     }
 }
