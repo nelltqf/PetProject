@@ -52,7 +52,7 @@ public class Manager {
     }
 
     public void updateQuestion(QuestionDto questionDto) {
-        // TODO
+        questionRepository.save(Transformer.questionToDomain(questionDto, categoryRepository));
     }
 
     public void deleteQuestion(int id) {
@@ -65,7 +65,7 @@ public class Manager {
     }
 
     public void updateCategory(CategoryDto categoryDto) {
-        // TODO
+        categoryRepository.save(Transformer.categoryToDomain(categoryDto));
     }
 
     public void deleteCategory(Integer categoryId) {

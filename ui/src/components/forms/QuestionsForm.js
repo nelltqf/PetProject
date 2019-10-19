@@ -11,8 +11,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
-import {TextField} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+import {EditCategoriesList} from "../categories/EditCategoriesList";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 
 export class QuestionsForm extends Component {
     questionsApi = new QuestionsApi();
@@ -21,10 +22,11 @@ export class QuestionsForm extends Component {
         super(props);
 
         this.state = {
-            currentCategory: 1,
+            currentCategory: null,
             categories: [],
             tab: 0,
             showCategoriesDialog: false,
+            openError: false
         };
     }
 
@@ -33,7 +35,8 @@ export class QuestionsForm extends Component {
             .then(response => {
                 console.log(response);
                 this.setState({
-                        categories: response
+                        categories: response,
+                        currentCategory: response[0] && response[0].id
                     }
                 )
             });
@@ -47,35 +50,25 @@ export class QuestionsForm extends Component {
 
     editCategories = () => {
         this.setState({
-            showCategoriesDialog: true,
-            newCategory: ""
+            showCategoriesDialog: true
         })
     };
 
     handleClose() {
         this.setState({
             showCategoriesDialog: false,
-            newCategory: ""
+            openError: false
         })
     }
 
-    handleChange = fieldName => {
-        return event => {
-            this.setState({
-                [fieldName]: event.target.value
-            });
-        };
-    };
-
-    addNewCategory = () => {
-        if (this.state.newCategory) {
-            this.questionsApi.addCategory({name: this.state.newCategory})
+    addNewCategory = (newCategory) => {
+        if (newCategory) {
+            this.questionsApi.addCategory({name: newCategory})
                 .then(response => {
                     let newCategories = [...this.state.categories];
                     newCategories.push(response);
                     this.setState({
-                        categories: newCategories,
-                        newCategory: ""
+                        categories: newCategories
                     })
                 });
         }
@@ -85,8 +78,30 @@ export class QuestionsForm extends Component {
         this.questionsApi.deleteCategory(categoryId)
             .then(() => {
                 let newCategories = this.state.categories.filter(category => category.id !== categoryId);
+                let newCurrentCategory = this.state.currentCategory;
+                if (this.state.currentCategory === categoryId) {
+                    newCurrentCategory = newCategories[0].id;
+                }
                 this.setState({
                     categories: newCategories,
+                    currentCategory: newCurrentCategory
+                });
+            }).catch(error => {
+            this.setState({openError: true});
+        });
+    };
+
+    editCategory = (categoryId, categoryName) => {
+        this.questionsApi.editCategory({id: categoryId, name: categoryName})
+            .then(() => {
+                let newCategories = [...this.state.categories];
+                newCategories.forEach(category => {
+                    if (category.id === categoryId) {
+                        category.name = categoryName;
+                    }
+                });
+                this.setState({
+                    categories: newCategories
                 });
             });
     };
@@ -103,29 +118,31 @@ export class QuestionsForm extends Component {
                                      currentCategory={this.state.currentCategory}
                                      selectCategory={this.selectCategory}
                                      editCategories={this.editCategories}/>,
-            1: <AddQuestionForm categories={this.state.categories}/>,
-            2: <p>Account</p>
+            1: <AddQuestionForm categories={this.state.categories}/>
         };
         return <Router>
             <div className="root">
+                <Dialog open={this.state.openError}
+                        onClose={this.handleClose.bind(this)}>
+                    <DialogTitle>Cannot delete category</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            This category cannot be removed. Try removing all questions from the category first.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleClose.bind(this)} color="primary" autoFocus>
+                            OK
+                        </Button>
+                    </DialogActions>
+                </Dialog>
                 <Dialog open={this.state.showCategoriesDialog}
                         onClose={this.handleClose.bind(this)}>
                     <DialogTitle>Edit categories</DialogTitle>
-
-
-                    {this.state.categories.map((category, i) => {
-                        return <Grid container key={i}>
-                            <Grid item>{category.name}</Grid>
-                            <Button>Edit</Button>
-                            <Button onClick={() => this.deleteCategory(category.id)}>Delete</Button>
-                        </Grid>
-                    })}
-
-                    <Grid container>
-                        <TextField value={this.state.newCategory} onChange={this.handleChange("newCategory")}/>
-                        <Button onClick={this.addNewCategory}>Add</Button>
-                    </Grid>
-
+                    <EditCategoriesList categories={this.state.categories}
+                                        deleteCategory={this.deleteCategory.bind(this)}
+                                        editCategory={this.editCategory.bind(this)}
+                                        addNewCategory={this.addNewCategory.bind(this)}/>
                     <DialogActions>
                         <Button onClick={this.handleClose.bind(this)} color="primary">
                             Done
@@ -139,7 +156,6 @@ export class QuestionsForm extends Component {
                     >
                         <Tab value={0} label="Questions"/>
                         <Tab value={1} label="Add question"/>
-                        <Tab value={2} label="Account"/>
                     </Tabs>
                 </AppBar>
                 {elements[this.state.tab]}

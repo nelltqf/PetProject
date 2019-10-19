@@ -1,0 +1,9 @@
+.question-details-dialog {
+    min-width: 500px;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.text-field {
+    min-width: 500px;
+}

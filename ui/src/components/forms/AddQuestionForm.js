@@ -106,7 +106,7 @@ export class AddQuestionForm extends Component {
                     label="Question"
                     margin="dense"
                     variant="outlined"
-                    multiline rows="2"
+                    multiline rows="10"
                     value={this.state.question}
                     onChange={this.handleChange('question')}
                 />
