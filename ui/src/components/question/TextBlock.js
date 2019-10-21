@@ -10,13 +10,16 @@ export const TextBlock = (props) => {
                      label={props.label}
                      multiline
                      rowsMax="8"
-                     variant="filled"
+                     variant="outlined"
                      fullWidth
                      onChange={props.onChange}/>
-        : <ReactMarkdown source={props.text}
-                         escapeHtml={false}
-                         renderers={{code: CodeBlock}}
-        />
-    }
+        : <>
+            <strong>{props.label}</strong>
+            <ReactMarkdown source={props.text}
+                           escapeHtml={false}
+                           renderers={{code: CodeBlock}}
+            />
+        </>
+             }
     </>;
 };

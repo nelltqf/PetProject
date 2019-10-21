@@ -1,0 +1,1 @@
+export const difficultyDisplayName = ['Intern', 'Junior', 'Middle', 'Senior'];

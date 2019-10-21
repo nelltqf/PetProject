@@ -96,6 +96,8 @@ export class QuestionsList extends Component {
     });
 
     render() {
-        return <div className="list"><List component="nav">{this.questionItems()}</List></div>;
+        return <div className="list">
+            <List component="nav">{this.questionItems()}</List>
+        </div>;
     }
 }

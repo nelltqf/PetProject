@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import Grid from "@material-ui/core/Grid";
-import "./question-item.css";
+import "./question-edit.css"
 import {TextBlock} from "../TextBlock";
 import {ControlButtonsContainer} from "../../control-buttons/ControlButtonsContainer";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import {difficultyDisplayName} from "../../service/DisplayName";
 
 export class EditQuestion extends Component {
 
@@ -40,37 +40,37 @@ export class EditQuestion extends Component {
         this.setState({isEditable: !this.state.isEditable});
     };
 
-    difficultyDisplayName = ['Intern', 'Junior', 'Middle', 'Senior'];
-
     render() {
+
         let difficultySelect = <Select
             value={this.state.difficultyId}
             onChange={this.handleChange("difficultyId")}
         >
-            {this.difficultyDisplayName.map((value, i) => <MenuItem value={i}>{value}</MenuItem>)}
+            {difficultyDisplayName.map((value, i) => <MenuItem key={i} value={i}>{value}</MenuItem>)}
         </Select>;
+
         return (
-            <div className='question-details-dialog'>
-                <Grid item>
-                    Difficulty:
+            <div className='question-edit-dialog'>
+                Difficulty
+                <span className="difficulty">
                     {this.state.isEditable
                         ? difficultySelect
-                        : this.difficultyDisplayName[this.state.difficultyId]}
-                </Grid>
-                <Grid container wrap="nowrap" spacing={2} direction="column">
-                    <Grid item>
+                        : difficultyDisplayName[this.state.difficultyId]}
+                </span>
+                <div className="edit-text-field-container">
+                    <div className="edit-text-field">
                         <TextBlock isEditable={this.state.isEditable}
                                    text={this.state.questionText}
                                    label='Question'
                                    onChange={this.handleChange("questionText")}/>
-                    </Grid>
-                    <Grid item>
+                    </div>
+                    <div className="edit-text-field">
                         <TextBlock isEditable={this.state.isEditable}
                                    text={this.state.answerText}
                                    label='Answer'
                                    onChange={this.handleChange("answerText").bind(this)}/>
-                    </Grid>
-                </Grid>
+                    </div>
+                </div>
                 <ControlButtonsContainer isEditable={this.state.isEditable}
                                          onClick={this.editQuestion.bind(this)}
                                          onDelete={this.props.onClickDelete}/>

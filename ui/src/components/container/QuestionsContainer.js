@@ -110,13 +110,6 @@ export class QuestionsContainer extends Component {
     }
 
     render() {
-        let elements = {
-            0: <QuestionsListContainer categories={this.state.categories}
-                                       currentCategory={this.state.currentCategory}
-                                       selectCategory={this.selectCategory}
-                                       editCategories={this.editCategories}/>,
-            1: <AddQuestion categories={this.state.categories}/>
-        };
         return <div className="root">
             <ErrorDialog isOpen={this.state.openError}
                          handleClose={this.handleClose.bind(this)}
@@ -146,7 +139,14 @@ export class QuestionsContainer extends Component {
                     <Tab value={1} label="Add question"/>
                 </Tabs>
             </AppBar>
-            {elements[this.state.tab]}
+            {
+                this.state.tab === 0
+                    ? <QuestionsListContainer categories={this.state.categories}
+                                              currentCategory={this.state.currentCategory}
+                                              selectCategory={this.selectCategory}
+                                              editCategories={this.editCategories}/>
+                    : <AddQuestion categories={this.state.categories}/>
+            }
         </div>
     }
 }
