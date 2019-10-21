@@ -19,6 +19,10 @@
     margin-top: 10px;
 }
 
+.edit-text-field:last-child {
+    margin-bottom: 20px;
+}
+
 .edit-text-field-container {
     display: flex;
     flex-direction: column;

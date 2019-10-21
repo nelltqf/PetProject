@@ -51,7 +51,7 @@ export class EditQuestion extends Component {
 
         return (
             <div className='question-edit-dialog'>
-                Difficulty
+                Difficulty:
                 <span className="difficulty">
                     {this.state.isEditable
                         ? difficultySelect
@@ -76,8 +76,5 @@ export class EditQuestion extends Component {
                                          onDelete={this.props.onClickDelete}/>
             </div>
         );
-    }
-    ;
-
-
+    };
 }
