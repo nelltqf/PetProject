@@ -1,0 +1,32 @@
+.edit-category {
+    width: 500px;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.edit-category:last-child {
+    margin-bottom: 0;
+}
+
+.category-item button {
+    margin-right: 5px;
+}
+
+.category-item button:last-child {
+    margin-right: 0;
+}
+
+.text-field-container {
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.text-field {
+    width: 350px;
+    margin-left: 5px;
+}

@@ -19,8 +19,9 @@ public class Transformer {
     public static QuestionDto questionToDto(Question question) {
         QuestionDto questionDto = new QuestionDto();
         questionDto.setId(question.getId());
-        // TODO null category?
-        questionDto.setCategoryId(question.getCategory().getId());
+        if (question.getCategory() != null) {
+            questionDto.setCategoryId(question.getCategory().getId());
+        }
         questionDto.setDifficultyId(question.getDifficulty().ordinal());
         questionDto.setQuestionText(question.getQuestionText());
         questionDto.setAnswerText(question.getAnswerText());

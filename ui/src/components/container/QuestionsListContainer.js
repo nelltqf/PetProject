@@ -1,9 +1,9 @@
 import React from 'react';
-import {CategoriesList} from "../categories/CategoriesList";
-import {QuestionsList} from "../questions/QuestionsList";
+import {CategoriesList} from "../category/category-list/CategoriesList";
+import {QuestionsList} from "../question/question-list/QuestionsList";
 import "../../css/App.css";
 
-export const QuestionsDisplayForm = (props) => {
+export const QuestionsListContainer = (props) => {
 
     return <div className="horizontal-form">
         <CategoriesList categories={props.categories}

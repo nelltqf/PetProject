@@ -16,10 +16,11 @@
 }
 
 .vertical-form {
+    align-self: center;
     display: flex;
     flex-direction: column;
     margin: 10px;
-    width: 100%;
+    width: 90%;
 }
 
 .list {
@@ -33,6 +34,6 @@
     margin-bottom: 5px;
 }
 
-.answer {
-
+.edit-category {
+    margin: 10px;
 }

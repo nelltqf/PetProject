@@ -40,6 +40,21 @@ export class QuestionsApi {
             })
     };
 
+    editQuestion = (question) => {
+        return fetch(`${BASE_URL}/questions/edit`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(question),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Something went wrong");
+                }
+            })
+    };
+
     deleteCategory = categoryId => {
         return fetch(`${BASE_URL}/categories/delete/${categoryId}`, {
             method: 'DELETE'
@@ -78,4 +93,19 @@ export class QuestionsApi {
                 }
             })
     }
+
+    editCategory = (category) => {
+        return fetch(`${BASE_URL}/categories/edit`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(category),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Something went wrong");
+                }
+            })
+    };
 }

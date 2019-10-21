@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import List from "@material-ui/core/List";
-import "../../css/App.css";
+import "../../../css/App.css";
 import ListItem from "@material-ui/core/ListItem";
-import {QuestionItem} from "./QuestionItem";
-import {QuestionsApi} from "../service/QuestionsApi";
+import {QuestionsApi} from "../../service/QuestionsApi";
+import {QuestionItem} from "../question-item/QuestionItem";
 
 export class QuestionsList extends Component {
     questionsApi = new QuestionsApi();
@@ -30,7 +30,7 @@ export class QuestionsList extends Component {
     }
 
     fetchQuestions(categoryId) {
-        this.questionsApi.fetchQuestions(categoryId)
+        categoryId && this.questionsApi.fetchQuestions(categoryId)
             .then(response => {
                 this.setState({
                     questions: response
@@ -49,6 +49,31 @@ export class QuestionsList extends Component {
             .catch(error => console.error(error));
     };
 
+    editQuestion = (id, questionText, answerText, difficultyId, categoryId) => {
+        this.questionsApi.editQuestion({
+            id: id,
+            questionText: questionText,
+            answerText: answerText,
+            categoryId: categoryId,
+            difficultyId: difficultyId,
+        })
+            .then(() => {
+                let newQuestions = [...this.state.questions];
+                newQuestions.forEach(question => {
+                    if (question.id === id) {
+                        question.questionText = questionText;
+                        question.answerText = answerText;
+                        question.difficultyId = difficultyId;
+                        question.categoryId = categoryId;
+                    }
+                });
+                this.setState({
+                    questions: newQuestions
+                });
+            });
+
+    };
+
     setSelectedQuestion(i) {
         let selected = i;
         if (this.state.selectedQuestion === i) {
@@ -64,13 +89,15 @@ export class QuestionsList extends Component {
             <ListItem key={i}>
                 <QuestionItem questionItem={question}
                               onClick={() => this.setSelectedQuestion(i)}
-                              onClickDelete={() => this.deleteQuestion(question, i)}
-                              showAnswer={i === this.state.selectedQuestion}/>
+                              editQuestion={this.editQuestion}
+                              onClickDelete={() => this.deleteQuestion(question, i)}/>
             </ListItem>
         )
     });
 
     render() {
-        return <div className="list"><List component="nav">{this.questionItems()}</List></div>;
+        return <div className="list">
+            <List component="nav">{this.questionItems()}</List>
+        </div>;
     }
 }
