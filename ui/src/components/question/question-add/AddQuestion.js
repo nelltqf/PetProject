@@ -14,7 +14,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import {QuestionsApi} from "../../service/QuestionsApi";
 import {ErrorDialog} from "../../service/ErrorDialog";
 
-export class AddQuestionForm extends Component {
+export class AddQuestion extends Component {
     questionsApi = new QuestionsApi();
 
     constructor(props) {

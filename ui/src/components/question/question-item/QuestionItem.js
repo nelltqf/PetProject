@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Grid from "@material-ui/core/Grid";
-import "./questions.css";
+import "./question-item.css";
 import Button from "@material-ui/core/Button";
 import {Dialog} from "@material-ui/core";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -9,6 +9,8 @@ import {TextBlock} from "../TextBlock";
 import {ControlButtonsContainer} from "../../control-buttons/ControlButtonsContainer";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
+import Avatar from "@material-ui/core/Avatar";
+import {EditQuestion} from "../question-edit/EditQuestion";
 
 export class QuestionItem extends Component {
 
@@ -64,13 +66,15 @@ export class QuestionItem extends Component {
         </Select>;
         return (
             <>
-                <Grid item onClick={() => {this.setState({showDetails: true})}}>
+                <Grid container direction="row" onClick={() => {this.setState({showDetails: true})}}>
+                    <Avatar>{this.state.difficultyId}</Avatar>
                     <TextBlock isEditable={false}
                                text={this.state.questionText}/>
                 </Grid>
                 <Dialog open={this.state.showDetails}
                         onClose={this.handleClose}>
                     <DialogContent>
+                        <EditQuestion editQuestion={this.props.editQuestion} />
                         <div className='question-details-dialog'>
                             <Grid item>
                                 Difficulty:

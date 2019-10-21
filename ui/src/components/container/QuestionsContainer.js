@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {AddQuestionForm} from "../question/question-add/AddQuestionForm";
+import {AddQuestion} from "../question/question-add/AddQuestion";
 import "../../css/App.css";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
@@ -115,7 +115,7 @@ export class QuestionsContainer extends Component {
                                        currentCategory={this.state.currentCategory}
                                        selectCategory={this.selectCategory}
                                        editCategories={this.editCategories}/>,
-            1: <AddQuestionForm categories={this.state.categories}/>
+            1: <AddQuestion categories={this.state.categories}/>
         };
         return <div className="root">
             <ErrorDialog isOpen={this.state.openError}
