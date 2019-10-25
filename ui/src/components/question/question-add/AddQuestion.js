@@ -80,11 +80,11 @@ export class AddQuestion extends Component {
 
     };
 
-    handleClose() {
+    handleClose = () => {
         this.setState({
             openDialog: false
         })
-    }
+    };
 
     categories = () => this.props.categories.map((category, i) => <MenuItem key={i}
                                                                             value={category.id}>{category.name}</MenuItem>);
@@ -93,7 +93,7 @@ export class AddQuestion extends Component {
         return (
             <div className="vertical-form">
                 <ErrorDialog isOpen={this.state.openDialog}
-                             handleClose={this.handleClose.bind(this)}
+                             handleClose={this.handleClose}
                              title={this.state.error}/>
                 <Typography component="h1" variant="h5">Add question</Typography>
                 <FormControl variant="outlined">

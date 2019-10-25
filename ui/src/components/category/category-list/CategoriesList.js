@@ -17,6 +17,6 @@ export const CategoriesList = (props) => {
 
     return <div>
         <MenuList>{getMenuItems}</MenuList>
-        <Button variant="contained" color="primary" onClick={() => props.editCategories()}>Edit</Button>
+        <Button variant="contained" color="primary" onClick={props.editCategories}>Edit</Button>
     </div>;
 };

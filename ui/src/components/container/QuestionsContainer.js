@@ -51,12 +51,12 @@ export class QuestionsContainer extends Component {
         })
     };
 
-    handleClose() {
+    handleClose = () => {
         this.setState({
             showCategoriesDialog: false,
             openError: false
         })
-    }
+    };
 
     addNewCategory = (newCategory) => {
         if (newCategory) {
@@ -103,29 +103,29 @@ export class QuestionsContainer extends Component {
             });
     };
 
-    selectTab(event, tab) {
+    selectTab = (event, tab) => {
         this.setState({
             tab: tab
         })
-    }
+    };
 
     render() {
         return <div className="root">
             <ErrorDialog isOpen={this.state.openError}
-                         handleClose={this.handleClose.bind(this)}
+                         handleClose={this.handleClose}
                          title="Cannot delete category">
                 This category cannot be removed. Try removing all questions from the category first.
             </ErrorDialog>
 
             <Dialog open={this.state.showCategoriesDialog}
-                    onClose={this.handleClose.bind(this)}>
+                    onClose={this.handleClose}>
                 <DialogTitle>Edit categories</DialogTitle>
                 <EditCategoriesList categories={this.state.categories}
-                                    deleteCategory={this.deleteCategory.bind(this)}
-                                    editCategory={this.editCategory.bind(this)}
-                                    addNewCategory={this.addNewCategory.bind(this)}/>
+                                    deleteCategory={this.deleteCategory}
+                                    editCategory={this.editCategory}
+                                    addNewCategory={this.addNewCategory}/>
                 <DialogActions>
-                    <Button onClick={this.handleClose.bind(this)} color="primary">
+                    <Button onClick={this.handleClose} color="primary">
                         Done
                     </Button>
                 </DialogActions>
@@ -133,7 +133,7 @@ export class QuestionsContainer extends Component {
             <AppBar position="static" color="default">
                 <Tabs
                     value={this.state.tab}
-                    onChange={this.selectTab.bind(this)}
+                    onChange={this.selectTab}
                 >
                     <Tab value={0} label="Questions"/>
                     <Tab value={1} label="Add question"/>

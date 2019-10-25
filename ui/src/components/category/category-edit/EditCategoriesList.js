@@ -23,19 +23,19 @@ export class EditCategoriesList extends Component {
         };
     };
 
-    addNewCategory() {
+    addNewCategory = () => {
         this.props.addNewCategory(this.state.newCategory);
         this.setState({
             newCategory: ""
         })
-    }
+    };
 
     render() {
         return <div className='edit-category'>
             {
                 this.props.categories.map((category, i) => {
                     return (
-                        <EditCategory key={i}
+                        <EditCategory key={category.id}
                                       category={category}
                                       editCategory={this.props.editCategory}
                                       deleteCategory={this.props.deleteCategory}/>
@@ -45,7 +45,7 @@ export class EditCategoriesList extends Component {
             <Grid container className='text-field-container'>
                 <TextField className='text-field' value={this.state.newCategory}
                            onChange={this.handleChange("newCategory")}/>
-                <Button variant="outlined" onClick={() => this.addNewCategory()}>Add</Button>
+                <Button variant="outlined" onClick={this.addNewCategory}>Add</Button>
             </Grid>
         </div>;
     }

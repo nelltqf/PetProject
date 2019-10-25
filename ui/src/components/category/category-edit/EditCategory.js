@@ -29,6 +29,10 @@ export class EditCategory extends Component {
         this.setState({isEditable: !this.state.isEditable});
     };
 
+    deleteCategory = () => {
+        this.props.deleteCategory(this.props.category.id);
+    };
+
     render() {
         return (
             <div className='category-item'>
@@ -38,8 +42,8 @@ export class EditCategory extends Component {
                                  onChange={this.handleChange("categoryName")}/>
                     : this.state.categoryName}</div>
                 <ControlButtonsContainer isEditable={this.state.isEditable}
-                                         onClick={this.editCategoryName.bind(this)}
-                                         onDelete={() => this.props.deleteCategory(this.props.category.id)}/>
+                                         onClick={this.editCategoryName}
+                                         onDelete={this.deleteCategory}/>
             </div>
         );
     }

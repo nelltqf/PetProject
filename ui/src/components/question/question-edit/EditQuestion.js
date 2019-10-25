@@ -68,11 +68,11 @@ export class EditQuestion extends Component {
                         <TextBlock isEditable={this.state.isEditable}
                                    text={this.state.answerText}
                                    label='Answer'
-                                   onChange={this.handleChange("answerText").bind(this)}/>
+                                   onChange={this.handleChange("answerText")}/>
                     </div>
                 </div>
                 <ControlButtonsContainer isEditable={this.state.isEditable}
-                                         onClick={this.editQuestion.bind(this)}
+                                         onClick={this.editQuestion}
                                          onDelete={this.props.onClickDelete}/>
             </div>
         );
