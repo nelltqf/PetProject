@@ -12,6 +12,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import {EditCategoriesList} from "../category/category-edit/EditCategoriesList";
 import {ErrorDialog} from "../service/ErrorDialog";
+import {CATEGORY_REMOVAL_ERROR} from "../../constants/Constants";
 
 export class QuestionsContainer extends Component {
     questionsApi = new QuestionsApi();
@@ -91,12 +92,9 @@ export class QuestionsContainer extends Component {
     editCategory = (categoryId, categoryName) => {
         this.questionsApi.editCategory({id: categoryId, name: categoryName})
             .then(() => {
-                let newCategories = [...this.state.categories];
-                newCategories.forEach(category => {
-                    if (category.id === categoryId) {
-                        category.name = categoryName;
-                    }
-                });
+                const newCategories = this.state.categories.map(category => (
+                    category.id === categoryId ? {...category, name: categoryName} : category)
+                );
                 this.setState({
                     categories: newCategories
                 });
@@ -114,7 +112,7 @@ export class QuestionsContainer extends Component {
             <ErrorDialog isOpen={this.state.openError}
                          handleClose={this.handleClose}
                          title="Cannot delete category">
-                This category cannot be removed. Try removing all questions from the category first.
+                {CATEGORY_REMOVAL_ERROR}
             </ErrorDialog>
 
             <Dialog open={this.state.showCategoriesDialog}

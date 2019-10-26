@@ -26,7 +26,9 @@ export class EditCategory extends Component {
         if (this.state.isEditable) {
             this.props.editCategory(this.props.category.id, this.state.categoryName);
         }
-        this.setState({isEditable: !this.state.isEditable});
+        this.setState(state => {
+            return {isEditable: !state.isEditable}
+        });
     };
 
     deleteCategory = () => {

@@ -30,17 +30,19 @@ export class EditCategoriesList extends Component {
         })
     };
 
+    editCategoriesMap = category => {
+        return (
+            <EditCategory key={category.id}
+                          category={category}
+                          editCategory={this.props.editCategory}
+                          deleteCategory={this.props.deleteCategory}/>
+        );
+    };
+
     render() {
         return <div className='edit-category'>
             {
-                this.props.categories.map((category, i) => {
-                    return (
-                        <EditCategory key={category.id}
-                                      category={category}
-                                      editCategory={this.props.editCategory}
-                                      deleteCategory={this.props.deleteCategory}/>
-                    );
-                })
+                this.props.categories.map(this.editCategoriesMap)
             }
             <Grid container className='text-field-container'>
                 <TextField className='text-field' value={this.state.newCategory}

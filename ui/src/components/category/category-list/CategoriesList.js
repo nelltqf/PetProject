@@ -5,10 +5,10 @@ import Button from "@material-ui/core/Button";
 
 export const CategoriesList = (props) => {
 
-    const getMenuItems = props.categories.map((category, i) => {
+    const getMenuItems = props.categories.map(category => {
         return (
             <MenuItem selected={category.id === props.currentCategory}
-                      key={i}
+                      key={category.id}
                       onClick={() => props.selectCategory(category.id)}>
                 {category.name}
             </MenuItem>

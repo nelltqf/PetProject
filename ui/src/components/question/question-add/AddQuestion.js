@@ -54,28 +54,29 @@ export class AddQuestion extends Component {
         } else {
             this.setState({
                 loading: true
-            });
-            this.questionsApi.saveQuestion({
-                questionText: this.state.question,
-                answerText: this.state.answer,
-                categoryId: this.state.category,
-                difficultyId: this.state.difficulty,
-            })
-                .then(() => {
-                    this.setState({
-                        question: "",
-                        answer: "",
-                        difficulty: 0,
-                        loading: false
-                    });
+            }, () => {
+                this.questionsApi.saveQuestion({
+                    questionText: this.state.question,
+                    answerText: this.state.answer,
+                    categoryId: this.state.category,
+                    difficultyId: this.state.difficulty,
                 })
-                .catch(error => {
-                    console.error(error.message);
-                    this.setState({
-                        openDialog: true,
-                        loading: false
+                    .then(() => {
+                        this.setState({
+                            question: "",
+                            answer: "",
+                            difficulty: 0,
+                            loading: false
+                        });
                     })
-                });
+                    .catch(error => {
+                        console.error(error.message);
+                        this.setState({
+                            openDialog: true,
+                            loading: false
+                        })
+                    });
+            });
         }
 
     };
