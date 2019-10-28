@@ -1,0 +1,29 @@
+.question-edit-dialog {
+    min-width: 500px;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.question-edit-dialog button {
+    margin-left: 5px;
+}
+
+.difficulty {
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.edit-text-field {
+    align-self: left;
+    min-width: 500px;
+    margin-top: 10px;
+}
+
+.edit-text-field:last-child {
+    margin-bottom: 20px;
+}
+
+.edit-text-field-container {
+    display: flex;
+    flex-direction: column;
+}

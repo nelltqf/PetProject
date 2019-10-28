@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import './css/App.css';
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import {QuestionsContainer} from "./components/container/QuestionsContainer";
+import '../node_modules/highlight.js/styles/github.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+    render() {
+        return (
+            // TODO: about switch https://reacttraining.com/react-router/web/api/Switch
+            <Router>
+                <div className="app">
+                    <Route exact path="/" component={QuestionsContainer}/>
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;

@@ -1,0 +1,17 @@
+.question-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+}
+
+.question-container:hover {
+    background-color: aliceblue;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.difficulty {
+    margin-top: 15px;
+    margin-right: 20px;
+}
